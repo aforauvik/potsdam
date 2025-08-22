@@ -32,10 +32,21 @@ const PrayerDataTable = ({onPrayerTimesUpdate}) => {
 			const date = `${today.getDate()}-${
 				today.getMonth() + 1
 			}-${today.getFullYear()}`;
-			const apiUrl = `http://api.aladhan.com/v1/timings/${date}?latitude=${latitude}&longitude=${longitude}&method=3&school=1`;
+			const apiUrl = `https://api.aladhan.com/v1/timings/${date}?latitude=${latitude}&longitude=${longitude}&method=3&school=1`;
 
 			console.log("Fetching from:", apiUrl);
-			const response = await fetch(apiUrl);
+			console.log("Current date:", today.toISOString());
+			
+			const response = await fetch(apiUrl, {
+				method: 'GET',
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+			});
+
+			console.log("Response status:", response.status);
+			console.log("Response headers:", response.headers);
 
 			if (!response.ok) {
 				throw new Error(`HTTP error! status: ${response.status}`);
@@ -47,7 +58,7 @@ const PrayerDataTable = ({onPrayerTimesUpdate}) => {
 			// Check if we have the expected data structure
 			if (data && data.data && data.data.timings) {
 				const times = data.data.timings;
-
+				
 				// Map API data to our format
 				const prayerData = [
 					{
@@ -96,8 +107,13 @@ const PrayerDataTable = ({onPrayerTimesUpdate}) => {
 			}
 		} catch (err) {
 			console.error("Error fetching prayer times:", err);
+			console.error("Error details:", {
+				message: err.message,
+				stack: err.stack,
+				name: err.name
+			});
 			setError("Failed to fetch prayer times. Please try again later.");
-
+			
 			// Fallback to static times if API fails
 			const fallbackTimes = [
 				{name: "Fajr", athan: "05:00 AM", prayer: "05:30 AM"},
