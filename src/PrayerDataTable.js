@@ -206,9 +206,25 @@ const PrayerDataTable = ({onPrayerTimesUpdate}) => {
 	};
 
 	const formatTime = (timeString) => {
-		if (!timeString) return "";
-		// Convert 24-hour format to 12-hour format if needed
-		return timeString;
+		if (!timeString || timeString === "N/A") return timeString;
+
+		// Convert 24-hour format to 12-hour format with AM/PM
+		try {
+			const [hours, minutes] = timeString.split(":");
+			const hour = parseInt(hours);
+			const minute = parseInt(minutes);
+
+			if (isNaN(hour) || isNaN(minute)) return timeString;
+
+			const period = hour >= 12 ? "PM" : "AM";
+			const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+			const displayMinute = minute.toString().padStart(2, "0");
+
+			return `${displayHour}:${displayMinute} ${period}`;
+		} catch (error) {
+			// If parsing fails, return original string
+			return timeString;
+		}
 	};
 
 	if (loading) {
@@ -261,8 +277,8 @@ const PrayerDataTable = ({onPrayerTimesUpdate}) => {
 						<div className="flex items-center">
 							{prayer.name}
 							{currentPrayer?.name === prayer.name && (
-								<span className="ml-2 px-2 py-1 text-xs bg-blue-600 text-white rounded-full">
-									Current
+								<span className="ml-2 px-2 py-1 text-xs font-semibold bg-blue-600 text-white rounded-full">
+									Now
 								</span>
 							)}
 						</div>

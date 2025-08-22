@@ -58,13 +58,13 @@ const PrayerTime = ({onPrayerTimesUpdate}) => {
 										scope="col"
 										className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase"
 									>
-										Athan Time
+										Athan
 									</th>
 									<th
 										scope="col"
 										className="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase"
 									>
-										Salah Time
+										Salah
 									</th>
 								</tr>
 							</thead>
