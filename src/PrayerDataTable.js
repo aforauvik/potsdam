@@ -27,17 +27,24 @@ const PrayerDataTable = ({onPrayerTimesUpdate}) => {
 			setLoading(true);
 			setError(null);
 
-			// Aladhan API endpoint (more reliable than IslamicFinder)
+			// Aladhan API endpoint with environment variable support
 			const today = new Date();
 			const date = `${today.getDate()}-${
 				today.getMonth() + 1
 			}-${today.getFullYear()}`;
-			const apiUrl = `http://api.aladhan.com/v1/timings/${date}?latitude=${latitude}&longitude=${longitude}&method=3&school=1`;
+			
+			// Use environment variables for different environments
+			const protocol = process.env.REACT_APP_API_PROTOCOL || 'https';
+			const baseUrl = process.env.REACT_APP_API_BASE_URL || 'api.aladhan.com';
+			const version = process.env.REACT_APP_API_VERSION || 'v1';
+			
+			const apiUrl = `${protocol}://${baseUrl}/${version}/timings/${date}?latitude=${latitude}&longitude=${longitude}&method=3&school=1`;
 
 			console.log("Fetching from:", apiUrl);
 			console.log("Current date:", today.toISOString());
 			console.log("Date format:", date);
-			console.log("Coordinates:", { latitude, longitude });
+			console.log("Coordinates:", {latitude, longitude});
+			console.log("Environment config:", { protocol, baseUrl, version });
 			
 			const response = await fetch(apiUrl);
 
