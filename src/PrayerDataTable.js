@@ -32,21 +32,17 @@ const PrayerDataTable = ({onPrayerTimesUpdate}) => {
 			const date = `${today.getDate()}-${
 				today.getMonth() + 1
 			}-${today.getFullYear()}`;
-			const apiUrl = `https://api.aladhan.com/v1/timings/${date}?latitude=${latitude}&longitude=${longitude}&method=3&school=1`;
+			const apiUrl = `http://api.aladhan.com/v1/timings/${date}?latitude=${latitude}&longitude=${longitude}&method=3&school=1`;
 
 			console.log("Fetching from:", apiUrl);
 			console.log("Current date:", today.toISOString());
+			console.log("Date format:", date);
+			console.log("Coordinates:", { latitude, longitude });
 			
-			const response = await fetch(apiUrl, {
-				method: 'GET',
-				headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/json',
-				},
-			});
+			const response = await fetch(apiUrl);
 
 			console.log("Response status:", response.status);
-			console.log("Response headers:", response.headers);
+			console.log("Response ok:", response.ok);
 
 			if (!response.ok) {
 				throw new Error(`HTTP error! status: ${response.status}`);
@@ -110,7 +106,7 @@ const PrayerDataTable = ({onPrayerTimesUpdate}) => {
 			console.error("Error details:", {
 				message: err.message,
 				stack: err.stack,
-				name: err.name
+				name: err.name,
 			});
 			setError("Failed to fetch prayer times. Please try again later.");
 			
