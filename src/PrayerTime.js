@@ -33,6 +33,9 @@ const PrayerTime = ({onPrayerTimesUpdate}) => {
 								</p>
 							</div>
 							<div className="flex items-center gap-1">
+								<span className="text-xs text-gray-500">
+									Last updated: {lastUpdated.toLocaleTimeString()}
+								</span>
 								<button
 									onClick={handleRefresh}
 									className="p-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-full transition-colors"
@@ -40,9 +43,6 @@ const PrayerTime = ({onPrayerTimesUpdate}) => {
 								>
 									<IoRefreshCircle className="w-5 h-5" />
 								</button>
-								<span className="text-xs text-gray-500">
-									Last updated: {lastUpdated.toLocaleTimeString()}
-								</span>
 							</div>
 						</div>
 						<table className="min-w-full divide-y divide-gray-200">
