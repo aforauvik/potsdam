@@ -32,20 +32,20 @@ const PrayerDataTable = ({onPrayerTimesUpdate}) => {
 			const date = `${today.getDate()}-${
 				today.getMonth() + 1
 			}-${today.getFullYear()}`;
-			
+
 			// Use environment variables for different environments
-			const protocol = process.env.REACT_APP_API_PROTOCOL || 'https';
-			const baseUrl = process.env.REACT_APP_API_BASE_URL || 'api.aladhan.com';
-			const version = process.env.REACT_APP_API_VERSION || 'v1';
-			
+			const protocol = process.env.REACT_APP_API_PROTOCOL || "https";
+			const baseUrl = process.env.REACT_APP_API_BASE_URL || "api.aladhan.com";
+			const version = process.env.REACT_APP_API_VERSION || "v1";
+
 			const apiUrl = `${protocol}://${baseUrl}/${version}/timings/${date}?latitude=${latitude}&longitude=${longitude}&method=3&school=1`;
 
 			console.log("Fetching from:", apiUrl);
 			console.log("Current date:", today.toISOString());
 			console.log("Date format:", date);
 			console.log("Coordinates:", {latitude, longitude});
-			console.log("Environment config:", { protocol, baseUrl, version });
-			
+			console.log("Environment config:", {protocol, baseUrl, version});
+
 			const response = await fetch(apiUrl);
 
 			console.log("Response status:", response.status);
@@ -61,7 +61,7 @@ const PrayerDataTable = ({onPrayerTimesUpdate}) => {
 			// Check if we have the expected data structure
 			if (data && data.data && data.data.timings) {
 				const times = data.data.timings;
-				
+
 				// Map API data to our format
 				const prayerData = [
 					{
@@ -116,7 +116,7 @@ const PrayerDataTable = ({onPrayerTimesUpdate}) => {
 				name: err.name,
 			});
 			setError("Failed to fetch prayer times. Please try again later.");
-			
+
 			// Fallback to static times if API fails
 			const fallbackTimes = [
 				{name: "Fajr", athan: "05:00 AM", prayer: "05:30 AM"},

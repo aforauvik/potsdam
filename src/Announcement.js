@@ -39,7 +39,7 @@ const Announcement = () => {
 							<div className="flex items-center justify-center sm:justify-start">
 								<div
 									key={currentIndex}
-									className="text-base sm:text-base font-medium break-words overflow-hidden text-ellipsis transition-opacity duration-500"
+									className="text-sm sm:text-base font-medium break-words overflow-hidden text-ellipsis transition-opacity duration-500"
 								>
 									{announcements[currentIndex]}
 								</div>
