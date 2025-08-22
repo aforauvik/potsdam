@@ -165,7 +165,7 @@ const Announcement = () => {
 								<h3 className="text-lg font-semibold text-gray-900">
 									{selectedAnnouncement.title}
 								</h3>
-								<button
+								{/* <button
 									onClick={closeModal}
 									className="text-gray-400 hover:text-gray-600 transition-colors"
 									aria-label="Close modal"
@@ -183,7 +183,7 @@ const Announcement = () => {
 											d="M6 18L18 6M6 6l12 12"
 										/>
 									</svg>
-								</button>
+								</button> */}
 							</div>
 							<div className="text-gray-700 leading-relaxed">
 								{selectedAnnouncement.description}
