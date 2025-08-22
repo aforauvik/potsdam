@@ -4,7 +4,7 @@ const Announcement = () => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 
 	const announcements = [
-		"🤝 Our Monthly Community Potluck is on Saturday, September 6th at 6:30 pm in Shaa Allah. Please, make sure you share only Halal food with the community.",
+		"Our Monthly Community Potluck is on Saturday, September 6th at 6:30 pm in Shaa Allah. Please, make sure you share only Halal food with the community.",
 	];
 
 	useEffect(() => {
